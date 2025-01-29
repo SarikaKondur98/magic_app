@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import GreatHall from './Components/GreatHall/GreatHall';
+import { Routes, Route } from 'react-router-dom';
+import Red from "../src/Components/Houses/Gryffindor/Gryffindor";
+import Green from "../src/Components/Houses/Slytherin/Slytherin"
+import Yellow from "../src/Components/Houses/Hufflepuff/Hufflepuff"
+import Blue from "../src/Components/Houses/Ravenclaw/Ravenclaw"
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path='/' element={<GreatHall />}></Route>
+        <Route path="/gryffindor" element={<Red />}></Route>
+        <Route path="/slytherin" element={<Green />}></Route>
+        <Route path="/hufflepuff" element={<Yellow />}></Route>
+        <Route path="/ravenclaw" element={<Blue />}></Route>
+      </Routes>
     </div>
   );
 }
