@@ -1,7 +1,5 @@
-import react, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { fetchStudentData } from '../../Students/StudentData/StudentDataSlice'
+import { useSelector } from "react-redux";
 
 function GryffindorRedirect() {
     const navigate = useNavigate();
@@ -36,26 +34,20 @@ function HufflepuffRedirect() {
     return <button onClick={routeToHufflepuff}>Hufflepuff</button>
 }
 
-const GreatHall = () => {
-    const dispatch = useDispatch();
-    const { wizards, status, error } = useSelector((state) => state.wizards);
-
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchStudentData())
-        }
-    }, [status, dispatch]);
-
-    if (status === 'loading') {
-        return <div>Loading...</div>;
-    };
-
-    if (status === 'failed') {
-        return <div>Error: {error}</div>;
+function AddStudentsToSchool() {
+    const navigate = useNavigate();
+    const routeToAddStudentsPage = () => {
+        navigate('/addStudents');
     }
+    return <button onClick={routeToAddStudentsPage}>Send Invites</button>
+}
+
+const GreatHall = ({ wizards }) => {
+    const storeStudentData = useSelector((state) => state.addWizards.storeStudentData);
     return (
         <div>
             <h1>Welcome to sorting Cermony</h1>
+            <AddStudentsToSchool />
             <p>In Few minutes you will be sorted into your own houses and go to your respective common rooms</p>
             <GryffindorRedirect />
             <HufflepuffRedirect />
@@ -64,6 +56,11 @@ const GreatHall = () => {
             {wizards.map((wiz) => (
                 <p key={wiz.id}>{wiz.character}</p>
             ))}
+            <div>
+                {storeStudentData.map((student, index) => (
+                    <p key={index}>{student.character}</p>
+                ))}
+            </div>
         </div>
     )
 }
